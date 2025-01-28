@@ -298,7 +298,11 @@ public:
 	virtual unique_ptr<PhysicalOperator> PlanUpdate(ClientContext &context, LogicalUpdate &op,
 	                                                unique_ptr<PhysicalOperator> plan) = 0;
 	virtual unique_ptr<LogicalOperator> BindCreateIndex(Binder &binder, CreateStatement &stmt, TableCatalogEntry &table,
-	                                                    unique_ptr<LogicalOperator> plan) = 0;
+	                                                    unique_ptr<LogicalOperator> plan);
+	virtual unique_ptr<LogicalOperator> BindAlterAddIndex(Binder &binder, TableCatalogEntry &table_entry,
+	                                                      unique_ptr<LogicalOperator> plan,
+	                                                      unique_ptr<CreateIndexInfo> create_info,
+	                                                      unique_ptr<AlterTableInfo> alter_info);
 
 	virtual DatabaseSize GetDatabaseSize(ClientContext &context) = 0;
 	virtual vector<MetadataBlockInfo> GetMetadataInfo(ClientContext &context);
